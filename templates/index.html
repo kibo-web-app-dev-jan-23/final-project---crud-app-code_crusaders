@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Autonomous Electric Vehicle Company</title>
+  </head>
+  <body>
+    <h1>Autonomous Electric Vehicle Company</h1>
+    <ul>
+      {% for vehicle in vehicles %}
+        <li>{{ vehicle.make }} {{ vehicle.model }} ({{ vehicle.year }}) - {{ vehicle.price }}</li>
+      {% endfor %}
+    </ul>
+    <a href="{{ url_for('new_vehicle') }}">New Vehicle</a>
+  </body>
+</html>

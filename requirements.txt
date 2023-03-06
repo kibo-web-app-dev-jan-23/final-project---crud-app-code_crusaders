@@ -1,0 +1,3 @@
+pip install Flask
+pip install SQLAlchemy==3.0.0
+Gunicorn
