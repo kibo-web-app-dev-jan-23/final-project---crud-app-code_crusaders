@@ -1,6 +1,19 @@
-from app import db
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Boolean, Integer, Column, ForeignKey, String
+
+
+db = SQLAlchemy()
+
+
+ProductBrand = db.Table(
+    "vehicle_brands",
+    Column("car_id", ForeignKey("vehicles.id"), primary_key=True),
+    Column("order_id", ForeignKey("orders.id"), primary_key=True),
+)
+
 
 class Vehicle(db.Model):
+    __tablename__ = "vehicles"
     id = db.Column(db.Integer, primary_key=True)
     make = db.Column(db.String(50), nullable=False)
     model = db.Column(db.String(50), nullable=False)
@@ -9,9 +22,12 @@ class Vehicle(db.Model):
     price = db.Column(db.Float, nullable=False)
     orders = db.relationship('Order', backref='vehicle', lazy=True)
 
+
 class Order(db.Model):
+    __tablename__ = "orders"
     id = db.Column(db.Integer, primary_key=True)
-    vehicle_id = db.Column(db.Integer, db.ForeignKey('vehicle.id'), nullable=False)
+    vehicle_id = db.Column(db.Integer, db.ForeignKey(
+        'vehicles.id'), nullable=False)
     customer_name = db.Column(db.String(50), nullable=False)
     customer_email = db.Column(db.String(50), nullable=False)
     order_date = db.Column(db.DateTime, nullable=False)
