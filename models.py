@@ -48,7 +48,7 @@ class Order(db.Model):
     customer_email = db.Column(db.String(50), nullable=False)
     order_date = db.Column(db.DateTime, nullable=False)
 
-    def __init__(self, vehicle_id, customer_name, customer_email, order_date, price, orders):
+    def __init__(self, vehicle_id, customer_name, customer_email, order_date):
         self.vehicle_id = vehicle_id
         self.customer_name = customer_name
         self.customer_email = customer_email
