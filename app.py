@@ -1,11 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from models import db, Vehicle, Order
 from datetime import datetime
 
 app = Flask(__name__)
 
 # configure the SQLite database
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/mydatabase'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Faqeeh123@localhost:5432/electric_car'
 
 # initialize the app with the extension
@@ -21,15 +20,21 @@ def index():
 @app.route('/vehicles/new', methods=['GET', 'POST'])
 def new_vehicle():
     if request.method == 'POST':
+        # handle vehicle submission
         make = request.form['make']
         model = request.form['model']
         year = request.form['year']
         range = request.form['range']
         price = request.form['price']
+
+        # creating new vehicle instance
         vehicle = Vehicle(make=make, model=model, year=year,
                           range=range, price=price)
+
+        # adding the new vehicle to the database
         db.session.add(vehicle)
         db.session.commit()
+        flash('New vehicle added successfully!')
         return redirect(url_for('index'))
     return render_template('new_vehicle.html')
 
