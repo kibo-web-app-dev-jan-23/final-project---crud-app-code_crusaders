@@ -5,7 +5,9 @@ from datetime import datetime
 app = Flask(__name__)
 
 # configure the SQLite database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Faqeeh123@localhost:5432/electric_car'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Faqeeh123@localhost:5432/electric_car'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../products.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # initialize the app with the extension
 db.init_app(app)
@@ -13,6 +15,7 @@ db.init_app(app)
 
 @app.route('/')
 def index():
+    db.create_all()
     vehicles = Vehicle.query.all()
     return render_template('index.html', vehicles=vehicles)
 
@@ -24,9 +27,8 @@ def new_vehicle():
         model = request.form['model']
         year = request.form['year']
         range = request.form['range']
-        price = request.form['price']
-        vehicle = Vehicle(make=make, model=model, year=year,
-                          range=range, price=price)
+        price = request.form['price']     
+        vehicle = Vehicle(make=make, model=model, year=year, range=range, price=price)
         db.session.add(vehicle)
         db.session.commit()
         return redirect(url_for('index'))
