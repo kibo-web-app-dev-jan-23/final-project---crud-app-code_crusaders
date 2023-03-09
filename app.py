@@ -20,21 +20,15 @@ def index():
 @app.route('/vehicles/new', methods=['GET', 'POST'])
 def new_vehicle():
     if request.method == 'POST':
-        # handle vehicle submission
         make = request.form['make']
         model = request.form['model']
         year = request.form['year']
         range = request.form['range']
         price = request.form['price']
-
-        # creating new vehicle instance
         vehicle = Vehicle(make=make, model=model, year=year,
                           range=range, price=price)
-
-        # adding the new vehicle to the database
         db.session.add(vehicle)
         db.session.commit()
-        flash('New vehicle added successfully!')
         return redirect(url_for('index'))
     return render_template('new_vehicle.html')
 
@@ -54,7 +48,7 @@ def edit_vehicle(id):
 
 
 @app.route('/vehicles/<int:id>/delete', methods=['POST'])
-def delete(id):
+def delete_vehicle(id):
     vehicle = Vehicle.query.get(id)
     db.session.delete(vehicle)
     db.session.commit()
