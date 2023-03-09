@@ -57,7 +57,7 @@ def delete_vehicle(id):
     return redirect(url_for('index'))
 
 
-@app.route('/vehicles/int:id/orders', methods=['GET', 'POST'])
+@app.route('/vehicles/<int:id>/orders', methods=['GET', 'POST'])
 def vehicle_orders(id):
     vehicle = Vehicle.query.get(id)
     if request.method == 'POST':
@@ -67,7 +67,7 @@ def vehicle_orders(id):
                       customer_email=customer_email, order_date=datetime.now())
         db.session.add(order)
         db.session.commit()
-        return redirect(url_for('vehicle_orders', id=id))
+        return redirect(url_for('index'))
     orders = Order.query.filter_by(vehicle_id=id).all()
     return render_template('vehicle_orders.html', vehicle=vehicle, orders=orders)
 
