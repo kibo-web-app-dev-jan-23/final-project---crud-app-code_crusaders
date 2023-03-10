@@ -2,10 +2,10 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from models import db, Vehicle, Order
 from datetime import datetime
 
+# Creating a new instance of a Flask web application
 app = Flask(__name__)
 
 # configure the SQLite database
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Faqeeh123@localhost:5432/electric_car'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../products.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -13,6 +13,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
 
+##################
+# Application routes
+##################
+
+# Defining a route for the root URL
 @app.route('/')
 def index():
     db.create_all()
@@ -20,6 +25,7 @@ def index():
     return render_template('index.html', vehicles=vehicles)
 
 
+# Creating a route map to the '/vehicles/new' URL endpoint
 @app.route('/vehicles/new', methods=['GET', 'POST'])
 def new_vehicle():
     if request.method == 'POST':
@@ -27,14 +33,16 @@ def new_vehicle():
         model = request.form['model']
         year = request.form['year']
         range = request.form['range']
-        price = request.form['price']     
-        vehicle = Vehicle(make=make, model=model, year=year, range=range, price=price)
+        price = request.form['price']
+        vehicle = Vehicle(make=make, model=model, year=year,
+                          range=range, price=price)
         db.session.add(vehicle)
         db.session.commit()
         return redirect(url_for('index'))
     return render_template('new_vehicle.html')
 
 
+# Creating a route to handle the editting of a single item
 @app.route('/vehicles/<int:id>/edit', methods=['GET', 'POST'])
 def edit_vehicle(id):
     vehicle = Vehicle.query.get(id)
@@ -49,6 +57,7 @@ def edit_vehicle(id):
     return render_template('edit_vehicle.html', vehicle=vehicle)
 
 
+# Creating a route to handle the deleting of a individual item
 @app.route('/vehicles/<int:id>/delete', methods=['POST'])
 def delete_vehicle(id):
     vehicle = Vehicle.query.get(id)
@@ -57,6 +66,7 @@ def delete_vehicle(id):
     return redirect(url_for('index'))
 
 
+# Creating a route to handle the ordering of a vehicles
 @app.route('/vehicles/<int:id>/orders', methods=['GET', 'POST'])
 def vehicle_orders(id):
     vehicle = Vehicle.query.get(id)
@@ -72,5 +82,6 @@ def vehicle_orders(id):
     return render_template('vehicle_orders.html', vehicle=vehicle, orders=orders)
 
 
+# Run the app in debug mode if this file is run
 if __name__ == "__main__":
     app.run(debug=True)
