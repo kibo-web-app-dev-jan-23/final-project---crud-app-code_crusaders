@@ -2,11 +2,15 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f2f2f2;
     color: #444;
+    background-image: url('images/home.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   
   h1 {
     font-size: 2.5rem;
     margin-bottom: 1.5rem;
+    color: red;
   }
   
   form {
@@ -48,11 +52,15 @@ body {
   }
   
   a {
-    color: #444;
-    text-decoration: underline;
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: white;
+    text-decoration: none;
   }
   
+
   a:hover {
-    color: #000;
+    color: white;
   }
   
