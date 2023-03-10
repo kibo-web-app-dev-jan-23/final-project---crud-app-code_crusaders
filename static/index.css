@@ -130,3 +130,21 @@ footer {
     padding: 10px;
     margin-top: 40px;
 }
+
+@media screen and (min-width: 480px) {
+    .card {
+        width: 100%;
+        flex-wrap: wrap;
+        align-content: space-between;
+    }
+
+    .edit-btn,
+    .delete-btn,
+    .view-btn {
+        width: auto;
+        flex-wrap: wrap;
+        align-content: space-between;
+    }
+
+
+}
