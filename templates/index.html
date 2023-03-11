@@ -26,46 +26,55 @@
       <h1>Electric Cars</h1>
     </header>
     <main>
+      <br />
       <div class="container">
-        {% for vehicle in vehicles %}
-        <div class="card">
-          <img
-            src="{{ vehicle.image }}"
-            alt="{{ vehicle.make }} {{ vehicle.model }}"
-          />
-          <div class="card-details">
-            <h2>{{ vehicle.make }} {{ vehicle.model }}</h2>
-            <p>Year: {{ vehicle.year }}</p>
-            <p>Range: {{ vehicle.range }} miles</p>
-            <p>Price: ${{ vehicle.price }}</p>
+        <div class="row">
+          {% for vehicle in vehicles %}
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card">
+              <img
+                src="{{ vehicle.image }}"
+                alt="{{ vehicle.make }} {{ vehicle.model }}"
+              />
+              <div class="card-details">
+                <h2>{{ vehicle.make }} {{ vehicle.model }}</h2>
+                <p>Year: {{ vehicle.year }}</p>
+                <p>Range: {{ vehicle.range }} miles</p>
+                <p>Price: ${{ vehicle.price }}</p>
 
-            <div class="card-buttons">
-              <a
-                href="{{ url_for('edit_vehicle', id=vehicle.id) }}"
-                class="button edit-btn"
-                >Edit</a
-              >
-              <form
-                action="{{ url_for('delete_vehicle', id=vehicle.id) }}"
-                method="POST"
-              >
-                <input type="submit" value="Delete" class="button delete-btn" />
-              </form>
+                <div class="card-buttons">
+                  <a
+                    href="{{ url_for('edit_vehicle', id=vehicle.id) }}"
+                    class="button edit-btn"
+                    >Edit</a
+                  >
+                  <form
+                    action="{{ url_for('delete_vehicle', id=vehicle.id) }}"
+                    method="POST"
+                  >
+                    <input
+                      type="submit"
+                      value="Delete"
+                      class="button delete-btn"
+                    />
+                  </form>
 
-              <a
-                href="{{ url_for('vehicle_orders', id=vehicle.id) }}"
-                class="button view-btn"
-                >View Orders</a
-              >
+                  <a
+                    href="{{ url_for('vehicle_orders', id=vehicle.id) }}"
+                    class="button view-btn"
+                    >View Orders</a
+                  >
+                </div>
+              </div>
             </div>
           </div>
+          {% endfor %}
         </div>
-        {% endfor %}
       </div>
       <a href="{{ url_for('new_vehicle') }}" class="button">Add New Vehicle</a>
     </main>
     <footer>
-      <p>&copy; {{ year }} Electric Cars | Car Shop</p>
+      <p>&copy; {{ year }} Code Crusaders Electric Cars | Car Shop</p>
     </footer>
 
     <script

@@ -23,7 +23,7 @@ class Vehicle(db.Model):
     year = db.Column(db.Integer, nullable=False)
     range = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float, nullable=False)
-    orders = db.relationship('Order', backref='vehicle', lazy=True)
+    orders = db.relationship('Order', backref='vehicle', lazy=True, cascade='delete')
 
 
 # Creating a model for the order table on the database
