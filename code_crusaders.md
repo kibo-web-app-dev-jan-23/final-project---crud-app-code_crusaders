@@ -29,5 +29,5 @@ The schema of this app is defined in models.py. There are two tables defined:
  ```sh
  pip install -r requirements.txt
  ```
-Run the app locally and visit http://127.0.0.1:5000 on the browser to see how it behaves.
+Run the app locally and visit http://localhost:5000 on the browser to see how it behaves.
 
