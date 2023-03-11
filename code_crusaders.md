@@ -1,16 +1,28 @@
-# Electric Cars
+# App Description
 
-Electric cars is an applicatio that displays available vehicles for sale in a car shop.
-It allows shop owners to edit displayed vehicles, view orders placed by customers and delete vehicles when they are out of stock. It also allows addition of new vehicles to the displayed items. 
+This is a Flask web application for a vehicle dealership. The app allows users to view, add, edit and delete vehicles from a SQLite database. It also allows users to order a vehicle by providing their name and email address. The application was created using Python 3 and the Flask web framework.
+
+## Schema
+
+The schema of this app is defined in models.py. There are two tables defined:
+
+### vehicles: This table stores the details of all the vehicles in the dealership. It has the following columns:
+- id: An integer representing the unique ID of the vehicle.
+- make: A string representing the make of the vehicle.
+- model: A string representing the model of the vehicle.
+- year: An integer representing the year of the vehicle.
+- range: An integer representing the range of the vehicle.
+- price: A float representing the price of the vehicle.
+- orders: A relationship to the orders table.
 
 
+### orders: This table stores the details of all the orders made by customers. It has the following columns:
 
-## Schema tables
- The tables in schema.sql are
-
- - Vehicles table which cotains the information about each vehicle. It has the make, the model, the year, the range and the price columns.
- - Orders table which keeps the records of orders placed by the customers.It consists of columns for the customer name, customer email address and the order date.
- - Vehicle brands table which links the car id to the order id 
+- id: An integer representing the unique ID of the order.
+- vehicle_id: An integer representing the ID of the vehicle being ordered. This is a foreign key referencing the id column in the vehicles table.
+- customer_name: A string representing the name of the customer who placed the order.
+- customer_email: A string representing the email address of the customer who placed the order.
+- order_date: A datetime representing the date and time when the order was placed.
 
  ## Setting up
  To set up, install the dependencies using pip
